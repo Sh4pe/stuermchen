@@ -20,10 +20,16 @@ RUN apt-get update && \
 # Extract kafka
 RUN mkdir -p /opt/kafka && \
     tar xvzf /tmp/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz -C /opt/kafka --strip 1 && \
+    mkdir -p /data/logs && \
     rm /tmp/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz
 
 ADD server.properties /opt/kafka/config/server.properties
+ADD run.sh /run.sh
+
+ENV ZOO_CONNECTION localhost
 
 # TODO: rm the kafka .tgz
 
 VOLUME ["/data"]
+
+CMD ["/run.sh"]
