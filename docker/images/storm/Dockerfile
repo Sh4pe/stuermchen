@@ -7,14 +7,15 @@ RUN apt-get update && \
     apt-get install -y openjdk-7-jdk && \
     rm -rf /var/lib/apt/lists/*
 
+# Install curl
+RUN apt-get update && \
+    apt-get install -y curl && \
+    rm -rf /var/lib/apt/lists/*
+
 # ===== STORM =====
 ENV STORM_VERSION 0.9.5
 
-# Install curl & download storm
-RUN apt-get update && \
-    apt-get install -y curl && \
-    curl -s -o /tmp/apache-storm-${STORM_VERSION}.tar.gz http://mirror.arcor-online.net/www.apache.org/storm/apache-storm-${STORM_VERSION}/apache-storm-${STORM_VERSION}.tar.gz && \
-    rm -rf /var/lib/apt/lists/*
+RUN curl -s -o /tmp/apache-storm-${STORM_VERSION}.tar.gz http://mirror.arcor-online.net/www.apache.org/storm/apache-storm-${STORM_VERSION}/apache-storm-${STORM_VERSION}.tar.gz
 
 # Extract the .tar.gz
 RUN mkdir -p /opt/storm && \

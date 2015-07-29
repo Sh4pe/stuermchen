@@ -7,14 +7,15 @@ RUN apt-get update && \
     apt-get install -y openjdk-7-jdk && \
     rm -rf /var/lib/apt/lists/*
 
+# Install curl
+RUN apt-get update && \
+    apt-get install -y curl && \
+    rm -rf /var/lib/apt/lists/*
+
 # ===== ZOOKEEPER =====
 ENV ZOOKEEPER_VERSION 3.4.6
 
-# Install curl & download zookeeper
-RUN apt-get update && \
-    apt-get install -y curl && \
-    curl -s -o /tmp/zookeeper-${ZOOKEEPER_VERSION}.tar.gz http://ftp.fau.de/apache/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz && \
-    rm -rf /var/lib/apt/lists/*
+RUN curl -s -o /tmp/zookeeper-${ZOOKEEPER_VERSION}.tar.gz http://ftp.fau.de/apache/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz
 
 # Extract the .tar.gz
 RUN mkdir -p /opt/zookeeper && \
